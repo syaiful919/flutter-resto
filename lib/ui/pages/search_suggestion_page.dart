@@ -47,7 +47,13 @@ class _SearchSuggestionPageState extends State<SearchSuggestionPage> {
         future: DefaultAssetBundle.of(context)
             .loadString('assets/json/restaurants.json'),
         builder: (context, snapshot) {
-          if (snapshot.data == null && searchController.text.isNotEmpty) {
+          if (snapshot.hasError && searchController.text.isNotEmpty) {
+            return Container(
+              padding: EdgeInsets.all(Gap.m),
+              child: Text("Terjadi kesalahan, coba beberapa saat lagi"),
+            );
+          } else if (snapshot.data == null &&
+              searchController.text.isNotEmpty) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot?.data != null &&
               searchController.text.isNotEmpty) {

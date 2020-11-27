@@ -3,6 +3,7 @@ import 'package:resto/common/styles.dart';
 import 'package:resto/data/model/restaurant_model.dart';
 import 'package:resto/ui/components/restaurant_list_item.dart';
 import 'package:resto/ui/components/search_input.dart';
+import 'package:resto/ui/components/something_error.dart';
 import 'package:resto/ui/pages/restaurant_detail_page.dart';
 import 'package:resto/ui/pages/search_suggestion_page.dart';
 
@@ -16,7 +17,9 @@ class HomePage extends StatelessWidget {
         future: DefaultAssetBundle.of(context)
             .loadString('assets/json/restaurants.json'),
         builder: (context, snapshot) {
-          if (snapshot.data == null) {
+          if (snapshot.hasError) {
+            return SomethingError();
+          } else if (snapshot.data == null) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot?.data != null) {
             List<RestaurantModel> restaurants =

@@ -30,6 +30,20 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.8.0
+  flutter_native_splash: ^0.1.9
+
+flutter_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "assets/images/splash.png"
+  
+
+flutter_native_splash:
+  image: "assets/images/splash.png"
+  color: "#ffffff"
+  fill: false
+  android_disable_fullscreen: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

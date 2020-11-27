@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final Color primaryColor = Color(0xFFFFFFFF);
-final Color secondaryColor = Color(0xFF6B38FB);
+final Color secondaryColor = Color(0xFFF27348);
 
 class Gap {
   static const double zero = 0;
