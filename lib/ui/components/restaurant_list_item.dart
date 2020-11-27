@@ -48,6 +48,7 @@ class RestaurantListItem extends StatelessWidget {
                   SizedBox(height: Gap.s),
                   RatingBar.builder(
                     itemSize: 12,
+                    ignoreGestures: true,
                     initialRating: restaurant.rating,
                     minRating: 0,
                     direction: Axis.horizontal,
