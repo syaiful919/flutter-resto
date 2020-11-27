@@ -87,10 +87,6 @@ ThemeData projectTheme = ThemeData(
   scaffoldBackgroundColor: Colors.white,
   visualDensity: VisualDensity.adaptivePlatformDensity,
   textTheme: projectTextTheme,
-  appBarTheme: AppBarTheme(
-    textTheme: projectTextTheme.apply(bodyColor: Colors.black),
-    elevation: 0,
-  ),
   buttonTheme: ButtonThemeData(
     buttonColor: secondaryColor,
     textTheme: ButtonTextTheme.primary,

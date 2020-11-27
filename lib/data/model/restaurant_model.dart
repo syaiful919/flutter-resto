@@ -1,3 +1,12 @@
+import 'dart:convert';
+
+List<RestaurantModel> listRestaurantFromRawJson(String data) {
+  var result = jsonDecode(data);
+  return List<RestaurantModel>.from(
+    result['restaurants'].map((x) => RestaurantModel.fromJson(x)),
+  );
+}
+
 class RestaurantModel {
   RestaurantModel({
     this.id,
