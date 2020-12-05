@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:resto/common/styles.dart';
 import 'package:resto/ui/components/search_input.dart';
-import 'package:resto/ui/components/search_list_item.dart';
+import 'package:resto/ui/pages/search_suggestion_page/local_components/search_list_item.dart';
 import 'package:resto/viewmodel/search_suggestion_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 

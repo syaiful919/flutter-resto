@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:resto/common/styles.dart';
 import 'package:resto/ui/components/no_data.dart';
-import 'package:resto/ui/components/restaurant_list_item.dart';
+import 'package:resto/ui/pages/home_page/local_components/restaurant_list_item.dart';
 import 'package:resto/ui/components/search_input.dart';
 import 'package:resto/ui/components/something_error.dart';
 import 'package:resto/viewmodel/home_viewmodel.dart';

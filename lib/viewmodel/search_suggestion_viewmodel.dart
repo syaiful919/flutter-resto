@@ -25,11 +25,7 @@ class SearchSuggestionViewModel extends BaseViewModel {
   Future<void> inputChanged(String keyword) async {
     if (_debounce?.isActive ?? false) _debounce.cancel();
     _debounce = Timer(const Duration(milliseconds: 300), () {
-      if (keyword.isEmpty) {
-        clearSearch();
-      } else {
-        _fetchRestaurants(keyword);
-      }
+      keyword.isEmpty ? clearSearch() : _fetchRestaurants(keyword);
     });
   }
 

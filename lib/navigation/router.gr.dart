@@ -7,9 +7,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:resto/ui/pages/home_page.dart';
-import 'package:resto/ui/pages/search_suggestion_page.dart';
-import 'package:resto/ui/pages/restaurant_detail_page.dart';
+import 'package:resto/ui/pages/home_page/home_page.dart';
+import 'package:resto/ui/pages/search_suggestion_page/search_suggestion_page.dart';
+import 'package:resto/ui/pages/restaurant_detail_page/restaurant_detail_page.dart';
 
 abstract class Routes {
   static const home = '/';

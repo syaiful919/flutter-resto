@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:resto/common/styles.dart';
 import 'package:resto/data/model/restaurant_model.dart';
+import 'package:resto/ui/pages/restaurant_detail_page/local_components/section_title.dart';
 
 class MenuList extends StatelessWidget {
   final String title;
@@ -18,7 +18,7 @@ class MenuList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        SectionTitle(title: "Minuman"),
+        SectionTitle(title: title),
         ListView.builder(
           shrinkWrap: true,
           padding: EdgeInsets.zero,
@@ -29,25 +29,6 @@ class MenuList extends StatelessWidget {
           ),
         )
       ],
-    );
-  }
-}
-
-class SectionTitle extends StatelessWidget {
-  final String title;
-  const SectionTitle({
-    Key key,
-    @required this.title,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: Gap.xxs),
-      child: Text(
-        title,
-        style: Theme.of(context).textTheme.subtitle1,
-      ),
     );
   }
 }
@@ -64,7 +45,7 @@ class MenuListItem extends StatelessWidget {
     return Container(
       child: Text(
         "- ${menu.name}",
-        style: Theme.of(context).textTheme.bodyText2,
+        style: Theme.of(context).textTheme.bodyText1,
       ),
     );
   }

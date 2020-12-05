@@ -17,6 +17,14 @@ class RestaurantDetailViewModel extends BaseViewModel {
   RestaurantState _state;
   RestaurantState get state => _state;
 
+  bool _showReviewModal = false;
+  bool get showReviewModal => _showReviewModal;
+
+  void toogleshowReviewModal() {
+    _showReviewModal = !_showReviewModal;
+    notifyListeners();
+  }
+
   Future<void> firstLoad(String id) async {
     _restaurantId = id;
     runBusyFuture(_fetchRestaurant());
