@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:resto/common/config.dart';
 import 'package:resto/common/styles.dart';
 import 'package:resto/data/model/restaurant_model.dart';
 
@@ -28,7 +29,7 @@ class RestaurantListItem extends StatelessWidget {
                 bottomLeft: Radius.circular(4),
               ),
               child: Image.network(
-                restaurant.pictureId,
+                BASE_IMG_SMALL + restaurant.pictureId,
                 width: 120,
               ),
             ),

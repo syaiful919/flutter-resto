@@ -12,10 +12,13 @@ class RestaurantModel {
     this.id,
     this.name,
     this.description,
-    this.pictureId,
     this.city,
-    this.rating,
+    this.pictureId,
     this.menus,
+    this.rating,
+    this.address,
+    this.categories,
+    this.customerReviews,
   });
 
   String id;
@@ -26,6 +29,10 @@ class RestaurantModel {
   double rating;
   MenuModel menus;
 
+  String address;
+  List<CategoryModel> categories;
+  List<CustomerReviewModel> customerReviews;
+
   factory RestaurantModel.fromJson(Map<String, dynamic> json) =>
       RestaurantModel(
         id: json["id"] == null ? null : json["id"],
@@ -35,6 +42,15 @@ class RestaurantModel {
         city: json["city"] == null ? null : json["city"],
         rating: json["rating"] == null ? null : json["rating"].toDouble(),
         menus: json["menus"] == null ? null : MenuModel.fromJson(json["menus"]),
+        address: json["address"] == null ? null : json["address"],
+        categories: json["categories"] == null
+            ? null
+            : List<CategoryModel>.from(
+                json["categories"].map((x) => CategoryModel.fromJson(x))),
+        customerReviews: json["customerReviews"] == null
+            ? null
+            : List<CustomerReviewModel>.from(json["customerReviews"]
+                .map((x) => CustomerReviewModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -45,6 +61,13 @@ class RestaurantModel {
         "city": city == null ? null : city,
         "rating": rating == null ? null : rating,
         "menus": menus == null ? null : menus.toJson(),
+        "address": address == null ? null : address,
+        "categories": categories == null
+            ? null
+            : List<dynamic>.from(categories.map((x) => x.toJson())),
+        "customerReviews": customerReviews == null
+            ? null
+            : List<dynamic>.from(customerReviews.map((x) => x.toJson())),
       };
 }
 
@@ -91,5 +114,46 @@ class MenuItemModel {
 
   Map<String, dynamic> toJson() => {
         "name": name == null ? null : name,
+      };
+}
+
+class CategoryModel {
+  CategoryModel({
+    this.name,
+  });
+
+  String name;
+
+  factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
+        name: json["name"] == null ? null : json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name == null ? null : name,
+      };
+}
+
+class CustomerReviewModel {
+  CustomerReviewModel({
+    this.name,
+    this.review,
+    this.date,
+  });
+
+  String name;
+  String review;
+  String date;
+
+  factory CustomerReviewModel.fromJson(Map<String, dynamic> json) =>
+      CustomerReviewModel(
+        name: json["name"] == null ? null : json["name"],
+        review: json["review"] == null ? null : json["review"],
+        date: json["date"] == null ? null : json["date"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name == null ? null : name,
+        "review": review == null ? null : review,
+        "date": date == null ? null : date,
       };
 }
