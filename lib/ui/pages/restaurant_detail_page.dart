@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:resto/common/config.dart';
 import 'package:resto/common/styles.dart';
 import 'package:resto/data/model/restaurant_model.dart';
 import 'package:resto/ui/components/menu_list.dart';
+import 'package:resto/ui/components/no_data.dart';
+import 'package:resto/ui/components/something_error.dart';
+import 'package:resto/viewmodel/restaurant_detail_viewmodel.dart';
+import 'package:stacked/stacked.dart';
 
 class RestaurantDetailPage extends StatefulWidget {
-  static const routeName = '/restaurant-detail';
+  final String id;
 
-  final RestaurantModel restaurant;
-
-  const RestaurantDetailPage({
-    Key key,
-    @required this.restaurant,
-  }) : super(key: key);
+  const RestaurantDetailPage({Key key, @required this.id}) : super(key: key);
 
   @override
   _RestaurantDetailPageState createState() => _RestaurantDetailPageState();
@@ -49,49 +49,65 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          ListView(
-            padding: EdgeInsets.zero,
-            controller: mainScroll,
-            children: <Widget>[
-              Stack(
+    return ViewModelBuilder<RestaurantDetailViewModel>.reactive(
+      onModelReady: (model) => model.firstLoad(widget.id),
+      viewModelBuilder: () => RestaurantDetailViewModel(),
+      builder: (_, model, __) => Scaffold(
+        body: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            if (model.state == RestaurantState.Loading)
+              Center(
+                child: CircularProgressIndicator(),
+              ),
+            if (model.state == RestaurantState.Error)
+              SomethingError(
+                message: model.message,
+                action: () => model.firstLoad(widget.id),
+              ),
+            if (model.state == RestaurantState.NoData) NoData(),
+            if (model.state == RestaurantState.HasData)
+              ListView(
+                padding: EdgeInsets.zero,
+                controller: mainScroll,
                 children: <Widget>[
-                  BannerSection(
-                    restaurant: widget.restaurant,
-                    radius: radius,
-                  ),
-                  DescriptionSection(
-                    radius: radius,
-                    restaurant: widget.restaurant,
+                  Stack(
+                    children: <Widget>[
+                      BannerSection(
+                        restaurant: model.restaurant,
+                        radius: radius,
+                      ),
+                      DescriptionSection(
+                        radius: radius,
+                        restaurant: model.restaurant,
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              color: Colors.white.withOpacity(appbarOpacity),
-              child: SafeArea(
-                child: SizedBox(
-                  height: AppBar().preferredSize.height,
-                  child: AppBar(
-                    elevation: 0,
-                    title: Text(
-                      widget.restaurant.name,
-                      style: TextStyle(
-                        color: Colors.black.withOpacity(appbarOpacity),
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                color: Colors.white.withOpacity(appbarOpacity),
+                child: SafeArea(
+                  child: SizedBox(
+                    height: AppBar().preferredSize.height,
+                    child: AppBar(
+                      elevation: 0,
+                      title: Text(
+                        model.restaurant?.name ?? "",
+                        style: TextStyle(
+                          color: Colors.black.withOpacity(appbarOpacity),
+                        ),
                       ),
+                      backgroundColor: Colors.white.withOpacity(appbarOpacity),
                     ),
-                    backgroundColor: Colors.white.withOpacity(appbarOpacity),
                   ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -162,7 +178,7 @@ class BannerSection extends StatelessWidget {
         AspectRatio(
           aspectRatio: 1,
           child: Image.network(
-            restaurant.pictureId,
+            BASE_IMG_LARGE + restaurant.pictureId,
             fit: BoxFit.cover,
           ),
         ),

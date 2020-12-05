@@ -4,14 +4,10 @@ import 'package:resto/ui/components/no_data.dart';
 import 'package:resto/ui/components/restaurant_list_item.dart';
 import 'package:resto/ui/components/search_input.dart';
 import 'package:resto/ui/components/something_error.dart';
-import 'package:resto/ui/pages/restaurant_detail_page.dart';
-import 'package:resto/ui/pages/search_suggestion_page.dart';
 import 'package:resto/viewmodel/home_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 class HomePage extends StatelessWidget {
-  static const routeName = '/';
-
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
@@ -44,12 +40,7 @@ class HomePage extends StatelessWidget {
                     ),
                     SizedBox(height: Gap.m),
                     GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          SearchSuggestionPage.routeName,
-                        );
-                      },
+                      onTap: () => model.goToSearchSuggestion(),
                       child: SearchInput(),
                     ),
                     ListView.builder(
@@ -59,13 +50,7 @@ class HomePage extends StatelessWidget {
                       itemCount: model.restaurants.length,
                       itemBuilder: (_, index) => RestaurantListItem(
                         restaurant: model.restaurants[index],
-                        onTap: (val) {
-                          Navigator.pushNamed(
-                            context,
-                            RestaurantDetailPage.routeName,
-                            arguments: val,
-                          );
-                        },
+                        onTap: (val) => model.goToRestaurantDetail(val),
                       ),
                     ),
                   ],

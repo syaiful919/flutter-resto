@@ -3,11 +3,8 @@ import 'package:resto/common/styles.dart';
 import 'package:resto/data/model/restaurant_model.dart';
 import 'package:resto/ui/components/search_input.dart';
 import 'package:resto/ui/components/search_list_item.dart';
-import 'package:resto/ui/pages/restaurant_detail_page.dart';
 
 class SearchSuggestionPage extends StatefulWidget {
-  static const routeName = '/search-suggestion';
-
   @override
   _SearchSuggestionPageState createState() => _SearchSuggestionPageState();
 }
@@ -74,13 +71,7 @@ class _SearchSuggestionPageState extends State<SearchSuggestionPage> {
                 itemCount: searched.length,
                 itemBuilder: (_, index) => SearchListItem(
                   restaurant: searched[index],
-                  onTap: (val) {
-                    Navigator.pushNamed(
-                      context,
-                      RestaurantDetailPage.routeName,
-                      arguments: val,
-                    );
-                  },
+                  onTap: (val) {},
                 ),
               );
             }

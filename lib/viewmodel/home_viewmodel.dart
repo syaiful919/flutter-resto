@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:resto/data/api/api_service.dart';
 import 'package:resto/data/model/restaurant_model.dart';
 import 'package:resto/data/model/restaurants_response_model.dart';
+import 'package:resto/navigation/navigation_service.dart';
+import 'package:resto/navigation/router.gr.dart';
 import 'package:stacked/stacked.dart';
 
 class HomeViewModel extends BaseViewModel {
@@ -41,6 +43,17 @@ class HomeViewModel extends BaseViewModel {
       _state = RestaurantsState.Error;
       _message = e.toString();
     }
+  }
+
+  void goToSearchSuggestion() {
+    NavigationService.pushNamed(Routes.searchSuggestion);
+  }
+
+  void goToRestaurantDetail(String id) {
+    NavigationService.pushNamed(
+      Routes.restaurantDetail,
+      arguments: RestaurantDetailPageArguments(id: id),
+    );
   }
 }
 

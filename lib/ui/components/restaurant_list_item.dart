@@ -6,7 +6,7 @@ import 'package:resto/data/model/restaurant_model.dart';
 
 class RestaurantListItem extends StatelessWidget {
   final RestaurantModel restaurant;
-  final Function(RestaurantModel) onTap;
+  final Function(String) onTap;
 
   const RestaurantListItem({
     Key key,
@@ -17,7 +17,7 @@ class RestaurantListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap(restaurant),
+      onTap: () => onTap(restaurant.id),
       child: Card(
         margin: EdgeInsets.only(bottom: Gap.m),
         child: Row(
