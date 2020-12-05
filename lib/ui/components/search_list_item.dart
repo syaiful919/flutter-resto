@@ -4,14 +4,14 @@ import 'package:resto/data/model/restaurant_model.dart';
 
 class SearchListItem extends StatelessWidget {
   final RestaurantModel restaurant;
-  final Function(RestaurantModel) onTap;
+  final Function(String) onTap;
 
   const SearchListItem({Key key, this.restaurant, this.onTap})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap(restaurant),
+      onTap: () => onTap(restaurant.id),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: Gap.m, vertical: Gap.s),
         child: Row(

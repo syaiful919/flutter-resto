@@ -3,6 +3,7 @@ import 'package:resto/common/config.dart';
 import 'package:resto/data/model/restaurant_detail_response_model.dart';
 
 import 'package:resto/data/model/restaurants_response_model.dart';
+import 'package:resto/data/model/restaurants_search_response_model.dart';
 
 class ApiService {
   Future<RestaurantsResponseModel> restaurants() async {
@@ -19,7 +20,16 @@ class ApiService {
     if (response.statusCode == 200) {
       return restaurantDetailResponseModelFromJson(response.body);
     } else {
-      throw Exception('Failed to load restaurant list');
+      throw Exception('Failed to load restaurant detail');
+    }
+  }
+
+  Future<RestaurantsSearchResponseModel> searchRestaurants(String query) async {
+    final response = await http.get("$BASE_URL/search?q=$query");
+    if (response.statusCode == 200) {
+      return restaurantsSearchResponseModelFromJson(response.body);
+    } else {
+      throw Exception('Failed to get searched restaurant');
     }
   }
 }
