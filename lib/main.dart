@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:resto/common/styles.dart';
 import 'package:resto/navigation/navigation_service.dart';
 import 'package:resto/navigation/router.gr.dart';
