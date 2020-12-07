@@ -31,6 +31,11 @@ class RestaurantListItem extends StatelessWidget {
               child: Image.network(
                 BASE_IMG_SMALL + restaurant.pictureId,
                 width: 120,
+                errorBuilder: (_, __, ___) => Container(
+                  width: 120,
+                  height: 75,
+                  child: Icon(Icons.error),
+                ),
               ),
             ),
             SizedBox(width: Gap.s),

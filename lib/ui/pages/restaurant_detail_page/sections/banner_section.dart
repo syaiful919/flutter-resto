@@ -17,6 +17,9 @@ class BannerSection extends ViewModelWidget<RestaurantDetailViewModel> {
           child: Image.network(
             BASE_IMG_LARGE + model.restaurant.pictureId,
             fit: BoxFit.cover,
+            errorBuilder: (_, __, ___) => Container(
+              child: Icon(Icons.error),
+            ),
           ),
         ),
         Positioned.fill(
