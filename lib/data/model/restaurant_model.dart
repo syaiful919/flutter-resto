@@ -50,7 +50,9 @@ class RestaurantModel {
         customerReviews: json["customerReviews"] == null
             ? null
             : List<CustomerReviewModel>.from(json["customerReviews"]
-                .map((x) => CustomerReviewModel.fromJson(x))),
+                    .map((x) => CustomerReviewModel.fromJson(x)))
+                .where((x) => x.name.isNotEmpty && x.review.isNotEmpty)
+                .toList(),
       );
 
   Map<String, dynamic> toJson() => {

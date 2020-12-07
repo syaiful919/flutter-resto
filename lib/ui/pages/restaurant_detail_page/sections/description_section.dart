@@ -44,6 +44,7 @@ class DescriptionSection extends ViewModelWidget<RestaurantDetailViewModel> {
             menus: model.restaurant.menus.drinks,
           ),
           SizedBox(height: Gap.l),
+          SectionTitle(title: "Review"),
           ReviewList(reviews: model.restaurant.customerReviews),
           Align(
             alignment: Alignment.centerRight,

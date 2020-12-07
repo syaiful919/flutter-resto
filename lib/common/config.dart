@@ -1,4 +1,5 @@
 const String BASE_URL = "https://restaurant-api.dicoding.dev";
+const String API_KEY = "12345";
 
 const String BASE_IMG_SMALL =
     "https://restaurant-api.dicoding.dev/images/small/";

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resto/common/styles.dart';
 import 'package:resto/data/model/restaurant_model.dart';
-import 'package:resto/ui/pages/restaurant_detail_page/local_components/section_title.dart';
 
 class ReviewList extends StatelessWidget {
   final List<CustomerReviewModel> reviews;
@@ -13,23 +12,18 @@ class ReviewList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        SectionTitle(title: "Review"),
-        ListView.builder(
-          shrinkWrap: true,
-          padding: EdgeInsets.zero,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: reviews.length,
-          itemBuilder: (context, index) => ReviewListItem(
-            index: index,
-            review: reviews[index],
-          ),
-        )
-      ],
-    );
+    return reviews != null && reviews.length > 0
+        ? ListView.builder(
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: reviews.length,
+            itemBuilder: (context, index) => ReviewListItem(
+              index: index,
+              review: reviews[index],
+            ),
+          )
+        : Container();
   }
 }
 
