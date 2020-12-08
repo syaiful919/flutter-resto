@@ -51,7 +51,7 @@ class ReviewListItem extends StatelessWidget {
                 height: 30,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: getColor(index),
+                  color: _getColor(index),
                 ),
                 margin: EdgeInsets.only(right: Gap.s),
                 alignment: Alignment.center,
@@ -90,7 +90,7 @@ class ReviewListItem extends StatelessWidget {
   }
 }
 
-Color getColor(int index) {
+Color _getColor(int index) {
   List<Color> colors = [
     Colors.red,
     Colors.blue,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:resto/common/styles.dart';
 import 'package:resto/ui/components/search_input.dart';
 import 'package:resto/ui/pages/search_suggestion_page/local_components/search_list_item.dart';
@@ -11,15 +12,16 @@ class SearchSuggestionPage extends StatefulWidget {
 }
 
 class _SearchSuggestionPageState extends State<SearchSuggestionPage> {
-  TextEditingController searchController;
+  TextEditingController _searchController;
   @override
   void initState() {
     super.initState();
-    searchController = TextEditingController();
+    _searchController = TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
+    var _searchController = useTextEditingController();
     return ViewModelBuilder<SearchSuggestionViewModel>.reactive(
       onModelReady: (model) {},
       viewModelBuilder: () => SearchSuggestionViewModel(),
@@ -31,7 +33,7 @@ class _SearchSuggestionPageState extends State<SearchSuggestionPage> {
             child: SearchInput(
               enabled: true,
               autofocus: true,
-              controller: searchController,
+              controller: _searchController,
               onChanged: (val) {
                 setState(() {});
                 model.inputChanged(val);
@@ -39,7 +41,7 @@ class _SearchSuggestionPageState extends State<SearchSuggestionPage> {
               onSubmitted: (val) {},
               onClear: () {
                 setState(() {
-                  searchController.clear();
+                  _searchController.clear();
                 });
                 model.clearSearch();
               },
@@ -83,5 +85,11 @@ class _SearchSuggestionPageState extends State<SearchSuggestionPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _searchController.dispose();
   }
 }
