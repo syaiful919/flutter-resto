@@ -49,6 +49,14 @@ class HomeViewModel extends BaseViewModel {
     NavigationService.pushNamed(Routes.searchSuggestion);
   }
 
+  void goToSetting() {
+    NavigationService.pushNamed(Routes.settingPage);
+  }
+
+  void goToFavorite() {
+    NavigationService.pushNamed(Routes.favoritePage);
+  }
+
   void goToRestaurantDetail(String id) {
     NavigationService.pushNamed(
       Routes.restaurantDetail,

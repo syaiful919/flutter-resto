@@ -29,7 +29,7 @@ class BannerSection extends ViewModelWidget<RestaurantDetailViewModel> {
                 colors: [Colors.black, Colors.transparent],
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
-                stops: [0, 0.3],
+                stops: [0, 0.5],
               ),
             ),
           ),
@@ -49,34 +49,28 @@ class BannerSection extends ViewModelWidget<RestaurantDetailViewModel> {
                       .headline4
                       .copyWith(color: Colors.white),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      model.restaurant.city,
-                      style: Theme.of(context)
-                          .textTheme
-                          .subtitle1
-                          .copyWith(color: Colors.white),
-                    ),
-                    RatingBar.builder(
-                      unratedColor: Colors.white,
-                      itemSize: 24,
-                      ignoreGestures: true,
-                      initialRating: model.restaurant.rating,
-                      minRating: 0,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 5,
-                      itemPadding: EdgeInsets.symmetric(horizontal: Gap.zero),
-                      itemBuilder: (context, _) => Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                      onRatingUpdate: (rating) {},
-                    ),
-                  ],
+                Text(
+                  "${model.restaurant.address}, ${model.restaurant.city}",
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle1
+                      .copyWith(color: Colors.white),
+                ),
+                RatingBar.builder(
+                  unratedColor: Colors.white,
+                  itemSize: 24,
+                  ignoreGestures: true,
+                  initialRating: model.restaurant.rating,
+                  minRating: 0,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemPadding: EdgeInsets.only(top: Gap.xs),
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  onRatingUpdate: (rating) {},
                 ),
               ],
             ),

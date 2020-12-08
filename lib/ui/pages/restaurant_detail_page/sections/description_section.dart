@@ -12,9 +12,7 @@ class DescriptionSection extends ViewModelWidget<RestaurantDetailViewModel> {
   @override
   Widget build(context, model) {
     return Container(
-      margin: EdgeInsets.only(
-        top: (MediaQuery.of(context).size.width / 1) - radius,
-      ),
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.width - radius),
       padding: EdgeInsets.symmetric(
         horizontal: Gap.m,
         vertical: Gap.l,

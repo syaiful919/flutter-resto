@@ -139,12 +139,8 @@ class _HomePageState extends State<HomePage>
                 favAnimation: favAnimation,
                 settingAnimation: settingAnimation,
                 searchAction: () => model.goToSearchSuggestion(),
-                favAction: () {
-                  print("fav");
-                },
-                settingAction: () {
-                  print("setting");
-                },
+                favAction: () => model.goToFavorite(),
+                settingAction: () => model.goToSetting(),
               ),
             )
           ],

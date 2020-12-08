@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resto/common/styles.dart';
 import 'package:resto/ui/components/no_data.dart';
 import 'package:resto/ui/components/something_error.dart';
 import 'package:resto/ui/pages/restaurant_detail_page/sections/banner_section.dart';
@@ -73,6 +74,29 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                     children: <Widget>[
                       BannerSection(),
                       DescriptionSection(),
+                      Positioned(
+                        top: MediaQuery.of(context).size.width - radius - Gap.l,
+                        right: radius,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                            boxShadow: [BoxShadow()],
+                          ),
+                          padding: EdgeInsets.all(Gap.xs),
+                          child: IconButton(
+                            padding: EdgeInsets.zero,
+                            icon: Icon(
+                              model.isFav
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: Colors.pinkAccent,
+                              size: 36,
+                            ),
+                            onPressed: () => model.toogleFav(),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ],

@@ -10,15 +10,21 @@ import 'package:auto_route/auto_route.dart';
 import 'package:resto/ui/pages/home_page/home_page.dart';
 import 'package:resto/ui/pages/search_suggestion_page/search_suggestion_page.dart';
 import 'package:resto/ui/pages/restaurant_detail_page/restaurant_detail_page.dart';
+import 'package:resto/ui/pages/favorite_page/favorite_page.dart';
+import 'package:resto/ui/pages/setting_page/setting_page.dart';
 
 abstract class Routes {
   static const home = '/';
   static const searchSuggestion = '/search-suggestion';
   static const restaurantDetail = '/restaurant-detail';
+  static const favoritePage = '/favorite-page';
+  static const settingPage = '/setting-page';
   static const all = {
     home,
     searchSuggestion,
     restaurantDetail,
+    favoritePage,
+    settingPage,
   };
 }
 
@@ -53,6 +59,16 @@ class Router extends RouterBase {
         return MaterialPageRoute<dynamic>(
           builder: (context) =>
               RestaurantDetailPage(key: typedArgs.key, id: typedArgs.id),
+          settings: settings,
+        );
+      case Routes.favoritePage:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => FavoritePage(),
+          settings: settings,
+        );
+      case Routes.settingPage:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => SettingPage(),
           settings: settings,
         );
       default:

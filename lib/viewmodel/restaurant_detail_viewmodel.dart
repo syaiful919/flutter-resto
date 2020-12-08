@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:resto/data/api/api_service.dart';
+import 'package:resto/data/db/database_helper.dart';
 import 'package:resto/data/model/restaurant_model.dart';
 import 'package:resto/data/model/review_payload_model.dart';
 import 'package:stacked/stacked.dart';
 
 class RestaurantDetailViewModel extends BaseViewModel {
   ApiService _api = ApiService();
+  DatabaseHelper _db = DatabaseHelper();
 
   String _restaurantId;
   RestaurantModel _restaurant;
@@ -26,6 +28,17 @@ class RestaurantDetailViewModel extends BaseViewModel {
   bool _tryingToGiveReview = false;
   bool get tryingToGiveReview => _tryingToGiveReview;
 
+  bool _tryingToFavAction = false;
+  bool get tryingToFavAction => _tryingToFavAction;
+
+  bool _isFav = false;
+  bool get isFav => _isFav;
+
+  Future<void> _checkIsFav() async {
+    var result = await _db.getFavoriteById(_restaurantId);
+    _isFav = result.isNotEmpty;
+  }
+
   void toogleshowReviewModal() {
     _showReviewModal = !_showReviewModal;
     notifyListeners();
@@ -34,6 +47,7 @@ class RestaurantDetailViewModel extends BaseViewModel {
   Future<void> firstLoad(String id) async {
     _restaurantId = id;
     runBusyFuture(_fetchRestaurant());
+    runBusyFuture(_checkIsFav());
   }
 
   Future<void> _fetchRestaurant() async {
@@ -56,6 +70,38 @@ class RestaurantDetailViewModel extends BaseViewModel {
       _state = RestaurantState.Error;
       _message = e.toString();
     }
+  }
+
+  Future<void> _addToFav() async {
+    try {
+      await _db.insertFavorite(_restaurant);
+      _isFav = true;
+    } catch (e) {
+      print(">>> Gagal menambahkan ke favorit");
+      // show error message
+    }
+  }
+
+  Future<void> _removeFromFav() async {
+    try {
+      await _db.removeFavorite(_restaurantId);
+      _isFav = false;
+    } catch (e) {
+      print(">>> Gagal menghapus dari favorit");
+      // show error message
+    }
+  }
+
+  Future<void> toogleFav() async {
+    _tryingToFavAction = true;
+    notifyListeners();
+    if (_isFav) {
+      await _removeFromFav();
+    } else {
+      await _addToFav();
+    }
+    _tryingToFavAction = false;
+    notifyListeners();
   }
 
   Future<void> giveReview({
