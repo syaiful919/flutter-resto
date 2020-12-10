@@ -35,7 +35,7 @@ class SettingViewModel extends BaseViewModel {
       print('Scheduling Notification Activated');
       notifyListeners();
       return await AndroidAlarmManager.periodic(
-        Duration(minutes: 1),
+        Duration(hours: 24),
         1,
         BackgroundService.randomRestaurantCallback,
         startAt: DateTimeHelper.format(),

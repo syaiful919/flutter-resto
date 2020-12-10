@@ -29,10 +29,7 @@ class SettingPage extends StatelessWidget {
                 if (Platform.isAndroid) {
                   model.toogleDailyNotification(val);
                 } else {
-                  showDialog(
-                    context: context,
-                    builder: (context) => comingSoonDialog(context),
-                  );
+                  comingSoonDialog(context);
                 }
               },
             )
