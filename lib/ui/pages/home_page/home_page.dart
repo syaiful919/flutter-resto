@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:resto/common/styles.dart';
+import 'package:resto/navigation/router.gr.dart';
 import 'package:resto/ui/components/no_data.dart';
 import 'package:resto/ui/pages/home_page/local_components/home_fab.dart';
 import 'package:resto/ui/components/restaurant_list_item.dart';
 import 'package:resto/ui/components/search_input.dart';
 import 'package:resto/ui/components/something_error.dart';
+import 'package:resto/utils/background_service.dart';
+import 'package:resto/utils/notification_helper.dart';
 import 'package:resto/viewmodel/home_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -15,6 +18,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
+  final NotificationHelper _notificationHelper = NotificationHelper();
+  final BackgroundService _service = BackgroundService();
   AnimationController animationController;
   Animation searchAnimation;
   Animation favAnimation;
@@ -24,7 +29,9 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-
+    port.listen((_) async => await _service.someTask());
+    _notificationHelper
+        .configureSelectNotificationSubject(Routes.restaurantDetail);
     animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 250),
@@ -71,6 +78,7 @@ class _HomePageState extends State<HomePage>
   void dispose() {
     super.dispose();
     animationController.dispose();
+    selectNotificationSubject.close();
   }
 
   @override

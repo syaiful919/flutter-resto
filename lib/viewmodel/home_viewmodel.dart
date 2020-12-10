@@ -8,7 +8,7 @@ import 'package:resto/navigation/router.gr.dart';
 import 'package:stacked/stacked.dart';
 
 class HomeViewModel extends BaseViewModel {
-  ApiService _api = ApiService();
+  final ApiService _api = ApiService();
 
   List<RestaurantModel> _restaurants;
   List<RestaurantModel> get restaurants => _restaurants;
