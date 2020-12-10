@@ -52,6 +52,7 @@ class RestaurantListItem extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     name,
+                    key: ValueKey(id),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   Text(

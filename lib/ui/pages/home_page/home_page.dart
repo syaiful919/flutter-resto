@@ -104,6 +104,7 @@ class _HomePageState extends State<HomePage>
                     return NoData();
                   case RestaurantsState.HasData:
                     return ListView(
+                      key: ValueKey("main-list"),
                       padding:
                           EdgeInsets.fromLTRB(Gap.m, Gap.xl, Gap.m, Gap.zero),
                       children: <Widget>[
