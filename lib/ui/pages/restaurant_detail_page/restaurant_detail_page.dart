@@ -51,79 +51,92 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
     return ViewModelBuilder<RestaurantDetailViewModel>.reactive(
       onModelReady: (model) => model.firstLoad(widget.id),
       viewModelBuilder: () => RestaurantDetailViewModel(),
-      builder: (_, model, __) => Scaffold(
-        body: Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            if (model.state == RestaurantState.Loading)
-              Center(
-                child: CircularProgressIndicator(),
-              ),
-            if (model.state == RestaurantState.Error)
-              SomethingError(
-                message: model.message,
-                action: () => model.firstLoad(widget.id),
-              ),
-            if (model.state == RestaurantState.NoData) NoData(),
-            if (model.state == RestaurantState.HasData)
-              ListView(
-                padding: EdgeInsets.zero,
-                controller: mainScroll,
-                children: <Widget>[
-                  Stack(
-                    children: <Widget>[
-                      BannerSection(),
-                      DescriptionSection(),
-                      Positioned(
-                        top: MediaQuery.of(context).size.width - radius - Gap.l,
-                        right: radius,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                            boxShadow: [BoxShadow()],
-                          ),
-                          padding: EdgeInsets.all(Gap.xs),
-                          child: IconButton(
-                            padding: EdgeInsets.zero,
-                            icon: Icon(
-                              model.isFav
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: Colors.pinkAccent,
-                              size: 36,
+      builder: (_, model, __) => WillPopScope(
+        onWillPop: () async {
+          model.goBack();
+          return true;
+        },
+        child: Scaffold(
+          body: Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              if (model.state == RestaurantState.Loading)
+                Center(
+                  child: CircularProgressIndicator(),
+                ),
+              if (model.state == RestaurantState.Error)
+                SomethingError(
+                  message: model.message,
+                  action: () => model.firstLoad(widget.id),
+                ),
+              if (model.state == RestaurantState.NoData) NoData(),
+              if (model.state == RestaurantState.HasData)
+                ListView(
+                  padding: EdgeInsets.zero,
+                  controller: mainScroll,
+                  children: <Widget>[
+                    Stack(
+                      children: <Widget>[
+                        BannerSection(),
+                        DescriptionSection(),
+                        Positioned(
+                          top: MediaQuery.of(context).size.width -
+                              radius -
+                              Gap.l,
+                          right: radius,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white,
+                              boxShadow: [BoxShadow()],
                             ),
-                            onPressed: () => model.toogleFav(),
+                            padding: EdgeInsets.all(Gap.xs),
+                            child: IconButton(
+                              padding: EdgeInsets.zero,
+                              icon: Icon(
+                                model.isFav
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: Colors.pinkAccent,
+                                size: 36,
+                              ),
+                              onPressed: () => model.toogleFav(),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  color: Colors.white.withOpacity(appbarOpacity),
+                  child: SafeArea(
+                    child: SizedBox(
+                      height: AppBar().preferredSize.height,
+                      child: AppBar(
+                        elevation: 0,
+                        leading: IconButton(
+                          icon: Icon(Icons.arrow_back),
+                          onPressed: () => model.goBack(),
+                        ),
+                        title: Text(
+                          model.restaurant?.name ?? "",
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(appbarOpacity),
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                color: Colors.white.withOpacity(appbarOpacity),
-                child: SafeArea(
-                  child: SizedBox(
-                    height: AppBar().preferredSize.height,
-                    child: AppBar(
-                      elevation: 0,
-                      title: Text(
-                        model.restaurant?.name ?? "",
-                        style: TextStyle(
-                          color: Colors.black.withOpacity(appbarOpacity),
-                        ),
+                        backgroundColor:
+                            Colors.white.withOpacity(appbarOpacity),
                       ),
-                      backgroundColor: Colors.white.withOpacity(appbarOpacity),
                     ),
                   ),
                 ),
               ),
-            ),
-            if (model.showReviewModal) ReviewModalSection()
-          ],
+              if (model.showReviewModal) ReviewModalSection()
+            ],
+          ),
         ),
       ),
     );

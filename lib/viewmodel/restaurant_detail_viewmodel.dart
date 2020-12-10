@@ -6,6 +6,7 @@ import 'package:resto/data/api/api_service.dart';
 import 'package:resto/data/db/database_helper.dart';
 import 'package:resto/data/model/restaurant_model.dart';
 import 'package:resto/data/model/review_payload_model.dart';
+import 'package:resto/navigation/navigation_service.dart';
 import 'package:stacked/stacked.dart';
 
 class RestaurantDetailViewModel extends BaseViewModel {
@@ -148,6 +149,8 @@ class RestaurantDetailViewModel extends BaseViewModel {
       message: message,
     )..show(context);
   }
+
+  void goBack() => NavigationService.pop(params: true);
 }
 
 enum RestaurantState { Loading, NoData, HasData, Error }

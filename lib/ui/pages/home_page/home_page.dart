@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:resto/common/styles.dart';
 import 'package:resto/ui/components/no_data.dart';
 import 'package:resto/ui/pages/home_page/local_components/home_fab.dart';
-import 'package:resto/ui/pages/home_page/local_components/restaurant_list_item.dart';
+import 'package:resto/ui/components/restaurant_list_item.dart';
 import 'package:resto/ui/components/search_input.dart';
 import 'package:resto/ui/components/something_error.dart';
 import 'package:resto/viewmodel/home_viewmodel.dart';
@@ -118,7 +118,11 @@ class _HomePageState extends State<HomePage>
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: model.restaurants.length,
                           itemBuilder: (_, index) => RestaurantListItem(
-                            restaurant: model.restaurants[index],
+                            id: model.restaurants[index].id,
+                            name: model.restaurants[index].name,
+                            city: model.restaurants[index].city,
+                            pictureId: model.restaurants[index].pictureId,
+                            rating: model.restaurants[index].rating,
                             onTap: (val) => model.goToRestaurantDetail(val),
                           ),
                         ),

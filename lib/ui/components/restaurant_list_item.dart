@@ -2,22 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:resto/common/config.dart';
 import 'package:resto/common/styles.dart';
-import 'package:resto/data/model/restaurant_model.dart';
 
 class RestaurantListItem extends StatelessWidget {
-  final RestaurantModel restaurant;
   final Function(String) onTap;
+  final String id;
+  final String name;
+  final String city;
+  final String pictureId;
+  final double rating;
 
   const RestaurantListItem({
     Key key,
-    @required this.restaurant,
     this.onTap,
+    this.id,
+    this.name,
+    this.city,
+    this.pictureId,
+    this.rating,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap(restaurant.id),
+      onTap: () => onTap(id),
       child: Card(
         margin: EdgeInsets.only(bottom: Gap.m),
         child: Row(
@@ -29,7 +36,7 @@ class RestaurantListItem extends StatelessWidget {
                 bottomLeft: Radius.circular(4),
               ),
               child: Image.network(
-                BASE_IMG_SMALL + restaurant.pictureId,
+                BASE_IMG_SMALL + pictureId,
                 width: 120,
                 errorBuilder: (_, __, ___) => Container(
                   width: 120,
@@ -44,18 +51,18 @@ class RestaurantListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    restaurant.name,
+                    name,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   Text(
-                    restaurant.city,
+                    city,
                     style: Theme.of(context).textTheme.caption,
                   ),
                   SizedBox(height: Gap.s),
                   RatingBar.builder(
                     itemSize: 12,
                     ignoreGestures: true,
-                    initialRating: restaurant.rating,
+                    initialRating: rating,
                     minRating: 0,
                     direction: Axis.horizontal,
                     allowHalfRating: true,
