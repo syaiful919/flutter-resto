@@ -56,7 +56,7 @@ class RestaurantDetailViewModel extends BaseViewModel {
       _state = RestaurantState.Loading;
       notifyListeners();
 
-      var response = await _api.restaurant(_restaurantId);
+      var response = await _api.getRestaurant(_restaurantId);
       if (response?.restaurant != null) {
         _restaurant = response.restaurant;
         _state = RestaurantState.HasData;

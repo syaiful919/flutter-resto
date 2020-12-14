@@ -28,7 +28,7 @@ class HomeViewModel extends BaseViewModel {
       _state = RestaurantsState.Loading;
       notifyListeners();
 
-      RestaurantsResponseModel response = await _api.restaurants();
+      RestaurantsResponseModel response = await _api.getRestaurants();
       if (response?.restaurants != null && response.restaurants.length > 0) {
         _restaurants = response.restaurants;
         _state = RestaurantsState.HasData;

@@ -27,7 +27,7 @@ class BackgroundService {
     print('Alarm fired!');
     try {
       final NotificationHelper _notificationHelper = NotificationHelper();
-      var result = await ApiService().restaurants();
+      var result = await ApiService().getRestaurants();
       if (result != null && result.restaurants.length > 0) {
         await _notificationHelper.showNotification(
           flutterLocalNotificationsPlugin,

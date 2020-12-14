@@ -7,7 +7,7 @@ import 'package:resto/data/model/restaurants_search_response_model.dart';
 import 'package:resto/data/model/review_payload_model.dart';
 
 class ApiService {
-  Future<RestaurantsResponseModel> restaurants() async {
+  Future<RestaurantsResponseModel> getRestaurants() async {
     final response = await http.get("$BASE_URL/list");
     if (response.statusCode == 200) {
       return restaurantsResponseModelFromJson(response.body);
@@ -16,7 +16,7 @@ class ApiService {
     }
   }
 
-  Future<RestaurantDetailResponseModel> restaurant(String id) async {
+  Future<RestaurantDetailResponseModel> getRestaurant(String id) async {
     final response = await http.get("$BASE_URL/detail/$id");
     if (response.statusCode == 200) {
       return restaurantDetailResponseModelFromJson(response.body);
